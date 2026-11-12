@@ -34,8 +34,12 @@ Rules:
 
 ## Deadline arithmetic
 
-- Vendor notice sent: `2026-11-12 (Thu)`
-- 10 business days: `2026-11-26 (Thu)` — file MITRE if VulDB has not assigned
+- Vendor notice: `pending` — set the real UTC time in row 2 when the Message-ID is recorded.
+  Original plan assumed `2026-11-12 (Thu)`; keep that only if the timestamp proves it.
+- 10 business days after the real send: `2026-11-26` if sent 2026-11-12 — **do not** file MITRE
+  on this date. VulDB's own form states moderation ≈ 6 weeks, and the CVE checkbox attests the
+  issue was not submitted to another CNA. Filing MITRE in parallel breaks that attestation and
+  risks duplicate IDs. MITRE is a fallback only after a VulDB reject or a written refusal.
 - 45 days: `2026-12-27 (Sun)` — CERT/CC window, public disclosure eligible
 - 90 days: `2027-02-10 (Wed)` — hard limit; publish regardless of vendor
 

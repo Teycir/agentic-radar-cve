@@ -4,8 +4,14 @@ VulDB is a CVE CNA and accepts researcher submissions directly. No maintainer ac
 required, which is the whole point: the GitHub CNA route is closed on this repository
 (private vulnerability reporting disabled).
 
-**Vendor notice already sent 2026-11-12** by email via Proton Mail to `developers@splx.ai`
-(Cc `ante@splx.ai`), 10-business-day deadline `2026-11-26`. No reply at submission time.
+**Vendor notice: send before submitting, then record it.** Email `developers@splx.ai`
+(Cc `ante@splx.ai`) with `cna/vendor-notice.md`, then fill `cna/contact-log.md` row 2 with the
+UTC time and Message-ID. The CVE checkbox attests the vendor was contacted beforehand, so
+this must be true and provable at submit time — not an assumption.
+
+Correction note (2026-11-12): an earlier revision of this file stated the notice was already
+sent. `cna/contact-log.md` row 2 is empty and no Message-ID was recorded, so the send is
+unverified. Whether or not it went out, record the Message-ID now; do not resend blindly.
 
 Entry point: `https://vuldb.com/?submit` (free account required, confirm the email).
 
