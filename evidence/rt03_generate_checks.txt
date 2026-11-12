@@ -1,0 +1,7 @@
+run_at=2026-11-11T23:23:08Z
+file=evidence/direct_generate_unsanitized.html
+literal_breakout_count=1
+escaped_count=0
+control_file=evidence/n8n_cli_report.html
+control_literal_count=0
+control_escaped_count=1

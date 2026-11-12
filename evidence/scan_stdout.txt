@@ -1,0 +1,5 @@
+Analyzing /tmp/opencode/radartest-1794438788/sample for openai-agents graphs
+Analyzing Agent vulnerabilities and mitigations
+Mapping vulnerabilities
+Generating report
+Report /home/teycir/BugBounty/agentic-radar/20261111/231619/evidence/report.html generated

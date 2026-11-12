@@ -1,0 +1,4 @@
+Analyzing /tmp/opencode/radartest-1794438788/n8n_xss for n8n graphs
+Mapping vulnerabilities
+Generating report
+Report /home/teycir/BugBounty/agentic-radar/20261111/231619/evidence/n8n_cli_report.html generated

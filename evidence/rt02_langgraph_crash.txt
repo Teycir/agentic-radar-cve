@@ -1,0 +1,8 @@
+run_at=2026-11-11T23:23:07Z
+cmd=agentic-radar scan langgraph -i /tmp/opencode/radartest-1794438788/lg_bad -o /tmp/opencode/lg.html
+│   19 │   │   if isinstance(node, ast.Import):                                │
+│   20 │   │   │   for alias in node.names:                                    │
+│   21 │   │   │   │   full_import = alias.name                                │
+╰──────────────────────────────────────────────────────────────────────────────╯
+UnboundLocalError: cannot access local variable 'tree' where it is not 
+associated with a value

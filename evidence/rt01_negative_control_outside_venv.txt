@@ -1,0 +1,8 @@
+run_at=2026-11-11T23:33:31Z
+install=/tmp/opencode/radar-outside (outside hostile repo)
+cwd=/tmp/opencode/evilrepo (contains hostile .env)
+requests_received=0
+scan_output_tail:
+provided: sk-DUMMY****SIDE. You can find your API key at 
+https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error',
+'code': 'invalid_api_key', 'param': None}, 'status': 401}
