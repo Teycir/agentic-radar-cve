@@ -1,0 +1,26 @@
+{
+    "response": {
+        "version": "3.87",
+        "format": "json",
+        "status": "200",
+        "lang": "en",
+        "items": 0,
+        "consumption": 1,
+        "remaining": 43,
+        "querylimit": 50,
+        "querylimitmax": 50,
+        "timestamp": "1794443929",
+        "rtt": 12,
+        "etag": "e3b8-a8e8-dcca"
+    },
+    "request": {
+        "timestamp": "1794443917",
+        "apikey": "valid",
+        "userid": "102943",
+        "details": 0,
+        "sort": "entry_timestamp_create",
+        "cti": 0,
+        "type": "search",
+        "value": "agentic_radar"
+    }
+}

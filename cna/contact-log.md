@@ -38,3 +38,10 @@ Rules:
 - 10 business days: `2026-11-26 (Thu)` — file MITRE if VulDB has not assigned
 - 45 days: `2026-12-27 (Sun)` — CERT/CC window, public disclosure eligible
 - 90 days: `2027-02-10 (Wed)` — hard limit; publish regardless of vendor
+
+## VulDB API pre-check (2026-11-12)
+
+- Key valid, userid `102943`, free plan, 42/50 queries left.
+- `query=search` for `agentic-radar`, `agentic_radar`, `splx-ai`: 0 items each — not a duplicate.
+- `query=submit`: `405 Unknown request` — API is read-only, entry needs the web form.
+- Evidence: `evidence/vuldb_api_probe.md`, `evidence/vuldb_api_search_*.json`.

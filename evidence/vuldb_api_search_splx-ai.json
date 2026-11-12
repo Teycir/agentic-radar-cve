@@ -1,0 +1,26 @@
+{
+    "response": {
+        "version": "3.87",
+        "format": "json",
+        "status": "200",
+        "lang": "en",
+        "items": 0,
+        "consumption": 1,
+        "remaining": 42,
+        "querylimit": 50,
+        "querylimitmax": 50,
+        "timestamp": "1794443941",
+        "rtt": 11,
+        "etag": "4e6f-972e-dcca"
+    },
+    "request": {
+        "timestamp": "1794443930",
+        "apikey": "valid",
+        "userid": "102943",
+        "details": 0,
+        "sort": "entry_timestamp_create",
+        "cti": 0,
+        "type": "search",
+        "value": "splx-ai"
+    }
+}
