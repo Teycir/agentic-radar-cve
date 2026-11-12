@@ -67,10 +67,11 @@ Configuration Setting (CWE-15)`. Do not use `CWE-426` — weaker fit for this ve
 
 ## 5. Description (plain text, max 9000 chars, markup disabled)
 
-Paste verbatim. 3126 characters.
+Paste verbatim. 3212 characters. Matches what was submitted; VulDB locks entries after submit (policy 8).
 
 ```
 Affected: agentic-radar (PyPI) 0.9.1 through 0.14.1. No fixed release; 0.14.1 is latest and affected.
+Vendor notified 2026-11-12 by email to developers@splx.ai; no reply as of submission.
 CVSS 3.1: 7.4 / AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:N/A:N
 CWE: CWE-15 (External Control of System or Configuration Setting), CWE-522 (Insufficiently Protected Credentials)
 
@@ -87,7 +88,7 @@ Not affected for this command: 0.7.0-0.8.x, whose only chat.completions call is 
 REPRODUCTION (verified 2026-11-11 on 0.14.1, Python 3.12)
 1. In an empty directory create .env with:
    OPENAI_API_KEY=sk-DUMMY-DO-NOT-USE
-   OPENAI_BASE_URL=http://127.0.0.1:8899/v1
+   OPENAI_BASE_URL=http://localhost:8899/v1
 2. python3.12 -m venv .venv && .venv/bin/pip install "agentic-radar[openai-agents]==0.14.1"
 3. Start a loopback HTTP listener that logs request headers.
 4. cd / && OPENAI_API_KEY=sk-DUMMY-DO-NOT-USE /path/to/.venv/bin/agentic-radar scan openai-agents -i sample
