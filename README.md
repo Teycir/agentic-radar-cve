@@ -29,15 +29,35 @@ current release. RT-02 is a local crash on malformed input; RT-03 is a latent li
 XSS whose CLI path is already escaped. Mention both in the advisory body as secondary notes;
 do not request separate IDs.
 
-## Submission steps (GitHub CNA)
+## Submission plan — do not rely on the GitHub CNA alone
+
+GitHub only assigns a CVE **after the maintainer publishes** the private advisory. A ghosted
+maintainer therefore blocks the whole process, which is what happened on previous reports.
+The GitHub advisory stays as a courtesy channel; the critical path is a CNA that assigns
+unilaterally.
+
+Full procedure: **`cna/playbook.md`**.
+
+| File | Purpose |
+|---|---|
+| `cna/playbook.md` | Route comparison, sequence, duplicate-ID handling, evidence rules |
+| `cna/vendor-notice.md` | Email to `developers@splx.ai` with a 10-business-day deadline |
+| `cna/vuldb-submission.md` | Fast-lane CNA submission (assigns without maintainer) |
+| `cna/mitre-submission.md` | CNA-of-last-resort form, field by field |
+| `cna/certcc-vince.md` | Coordinator route for a vendor that engages and stalls |
+| `cna/contact-log.md` | Fill-as-you-go evidence log; MITRE requires it |
+
+Sequence: T0 vendor notice + VulDB submission → T+10 business days MITRE if no VulDB ID →
+T+45 days CERT/CC only if the vendor replied but will not fix. Never file two CNAs in
+parallel; first assigned ID is canonical.
+
+The GitHub advisory still gets filed at T0 because MITRE asks for a vendor contact of record:
 
 1. Open `https://github.com/splx-ai/agentic-radar/security/advisories/new`.
 2. Ecosystem `pip`, package `agentic-radar`, affected `>=0.9.1, <=0.14.1`, patched: none.
 3. Severity: High, vector `CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:N/A:N` (7.4).
 4. Paste `cve-submission/advisory.md`, attach the listener and the report.
-5. Request a CVE ID in the advisory form. GitHub, as CNA, assigns it.
-6. If the maintainer does not respond within 90 days, escalate to MITRE
-   (`https://cveform.mitre.org/`), referencing the GitHub advisory URL.
+5. Do not wait on it. Proceed with VulDB the same day.
 
 ## Scoring caveat
 
