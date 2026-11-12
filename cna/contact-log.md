@@ -7,7 +7,7 @@ difference between "researcher with a complaint" and "researcher with a case".
 
 | # | UTC timestamp | Channel | From → To | Subject / summary | Message-ID or URL | Reply |
 |---|---|---|---|---|---|---|
-| 1 |  | GitHub private advisory | Teycir → splx-ai maintainers | agentic-radar API key exfiltration |  |  |
+| 1 |  | GitHub private advisory | — | **Unavailable**: private vulnerability reporting disabled, no Security tab, `advisories/new` cannot be opened | — | n/a |
 | 2 |  | Email | teycir@gmail.com → developers@splx.ai (Cc ante@splx.ai) | Security report: agentic-radar <=0.14.1 |  |  |
 | 3 |  | Email |  | Deadline reminder / bounce note |  |  |
 
@@ -24,7 +24,7 @@ Rules:
 | 1 |  | VulDB | vuldb.com/?submit |  |  |
 | 2 |  | MITRE | cveform.mitre.org |  |  |
 | 3 |  | CERT/CC | kb.cert.org/vince |  |  |
-| 4 |  | GitHub | private advisory on splx-ai/agentic-radar |  |  |
+| 4 | — | GitHub | N/A — PVR disabled, no advisory possible, GitHub CNA cannot assign | — | not applicable |
 
 ## Assigned IDs
 
@@ -34,7 +34,7 @@ Rules:
 
 ## Deadline arithmetic
 
-- Vendor notice sent: `<T0>`
-- 10 business days: `<T0 + 10bd>` — escalate if silent
-- 45 days: `<T0 + 45d>` — CERT/CC window, public disclosure eligible
-- 90 days: `<T0 + 90d>` — hard limit; publish regardless of vendor
+- Vendor notice sent: `2026-11-12 (Thu)`
+- 10 business days: `2026-11-26 (Thu)` — file MITRE if VulDB has not assigned
+- 45 days: `2026-12-27 (Sun)` — CERT/CC window, public disclosure eligible
+- 90 days: `2027-02-10 (Wed)` — hard limit; publish regardless of vendor

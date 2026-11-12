@@ -64,7 +64,7 @@ re-score with S:U as 6.5 (Medium).
 ```
 https://github.com/splx-ai/agentic-radar
 https://pypi.org/project/agentic-radar/
-Private advisory URL: <fill in after filing>
+No GitHub advisory possible: private vulnerability reporting is disabled on the repository.
 Reporter bundle: https://github.com/Teycir/agentic-radar-cve (private)
 ```
 
@@ -82,11 +82,11 @@ Reporter bundle: https://github.com/Teycir/agentic-radar-cve (private)
 ## Vendor contact
 
 ```
-Private GitHub security advisory filed on 2026-11-12.
-Email to developers@splx.ai (Cc ante@splx.ai) sent 2026-11-12 with a 10-business-day
-deadline. <insert: no reply / reply text>.
-No SECURITY.md exists in the repository; developers@splx.ai is the address published in
-PyPI metadata and CODE_OF_CONDUCT.md.
+No private reporting channel exists: private vulnerability reporting is disabled on the
+repository (no Security tab, security/advisories/new unavailable) and there is no SECURITY.md.
+Email to developers@splx.ai (Cc ante@splx.ai) sent 2026-11-12 with a 10-business-day deadline.
+<insert: no reply / reply text>.
+developers@splx.ai is the address published in PyPI metadata and CODE_OF_CONDUCT.md.
 ```
 
 ## Disclosure timeline

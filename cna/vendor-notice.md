@@ -15,8 +15,8 @@ Body:
 Hello,
 
 I am reporting a security issue in agentic-radar (PyPI), versions 0.9.1 through 0.14.1.
-I could not find a SECURITY.md or a private reporting channel, so I am contacting you
-directly and have also opened a private security advisory on the GitHub repository.
+There is no SECURITY.md and private vulnerability reporting is disabled on the repository, so
+I am contacting you directly.
 
 Summary
 -------
@@ -52,7 +52,7 @@ Suggested fix
   refuse non-default hosts unless the user confirms.
 - Consider preventing the tool from reading any .env that lives in the scanned directory.
 
-I plan to request a CVE for this issue. If I do not hear back by <DATE + 10 business days>,
+I plan to request a CVE for this issue. If I do not hear back by 26 November 2026,
 I will proceed with the CNA process without your input. I am happy to share the full report
 and reproducer privately, and to hold publication until a fix ships.
 

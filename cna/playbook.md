@@ -27,8 +27,8 @@ engages and negotiations drag. GitHub stays as a courtesy channel, never the pla
 
 **T0 — vendor notice, and VulDB submission.**
 
-1. File the private advisory on `splx-ai/agentic-radar`. This is the contact of record and
-   the URL you cite later. Log it.
+1. GitHub private reporting is disabled on this repository — no Security tab, no advisory
+   form. Skip it. The email is the contact of record.
 2. Email `developers@splx.ai` (Cc `ante@splx.ai`) using `vendor-notice.md`. State a
    10-business-day deadline. Keep the SMTP copy / sent folder entry and the Message-ID.
 3. Submit to VulDB the same day using `cna/vuldb-submission.md`. Do not wait for the vendor.

@@ -51,13 +51,16 @@ Sequence: T0 vendor notice + VulDB submission → T+10 business days MITRE if no
 T+45 days CERT/CC only if the vendor replied but will not fix. Never file two CNAs in
 parallel; first assigned ID is canonical.
 
-The GitHub advisory still gets filed at T0 because MITRE asks for a vendor contact of record:
+The GitHub advisory route is **unavailable on this repository**: private vulnerability
+reporting is disabled, there is no Security tab, and `security/advisories/new` cannot be
+opened. The GitHub CNA is therefore closed until the maintainer enables PVR. The email is the
+contact of record.
 
-1. Open `https://github.com/splx-ai/agentic-radar/security/advisories/new`.
-2. Ecosystem `pip`, package `agentic-radar`, affected `>=0.9.1, <=0.14.1`, patched: none.
-3. Severity: High, vector `CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:N/A:N` (7.4).
-4. Paste `cve-submission/advisory.md`, attach the listener and the report.
-5. Do not wait on it. Proceed with VulDB the same day.
+1. Email `developers@splx.ai`, Cc `ante@splx.ai` — body in `cna/vendor-notice.md`.
+2. Same day, submit to VulDB — it assigns without vendor involvement.
+3. If the email bounces, open a public issue or discussion **asking only for a security
+   contact**, with no technical detail, and log it. Never describe the bug in a public thread.
+4. Keep the CVSS/CWE/range text above for the VulDB and MITRE forms.
 
 ## Scoring caveat
 
