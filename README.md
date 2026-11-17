@@ -79,5 +79,5 @@ Recommendations not adopted: reject a non-default `OPENAI_BASE_URL` unless expli
 
 Vendor notified `2026-11-12T00:26:10Z` at `developers@splx.ai` (Cc `ante@splx.ai`), Message-ID
 `<AFRc0PZKfwKA0vhEbrH5s_7PN2phfIT_Npa7V6UOuitZ2oW9wuXIzBpqdLiBiMVyeejORT-XWZPqE8FiPm-r6wiuAbsN720Pw0ISzMPDt6I=@protonmail.com>`,
-no reply. Submitted to VulDB (CNA) and VulnCheck (CNA, submission ID `ba40600f-11e9-4afa-a1f0-53475fac6a6b`). No other CNAs. GitHub private
+no reply initially; vendor later confirmed by private email that the issue was fixed. Submitted to VulDB (CNA) and VulnCheck (CNA, submission ID `ba40600f-11e9-4afa-a1f0-53475fac6a6b`). No other CNAs. GitHub private
 vulnerability reporting is disabled on the upstream repository.
