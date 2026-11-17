@@ -9,11 +9,11 @@ named in a `.env` file that the scanned repository controls. No flag, prompt or 
 | Source | `github.com/splx-ai/agentic-radar` |
 | Audited | 0.14.1, commit `65a7e4bd01e2034c7cb52e9620eeed287688cc53` (2025-11-27) |
 | Affected | `0.9.1` – `0.14.1` |
-| Fixed in | none; 0.14.1 is latest and affected |
+| Fixed in | RT-01 fixed in `0.14.2` (commit `b99bb14`, PR #134, 2026-11-13); RT-02 (langgraph crash) and RT-03 (report XSS) remain unfixed in `0.14.2` |
 | Severity | High — CVSS 3.1 **7.4** `AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:N/A:N` |
 | CWE | CWE-15, CWE-522 |
 | Reported by | Teycir ([github.com/Teycir](https://github.com/Teycir)) |
-| Status | submitted to VulDB (CNA), no CVE assigned yet |
+| Status | RT-01 fixed by vendor in 0.14.2; RT-02 and RT-03 still open. Submitted to VulDB (CNA), no CVE assigned yet. |
 
 ## Issue
 
@@ -50,10 +50,17 @@ Expected: two `POST /v1/chat/completions` requests reach the listener with
 
 ## Fix
 
-- Do not call `load_dotenv()` at import time; require an explicit `--env-file` path.
-- Reject a non-default `OPENAI_BASE_URL` unless explicitly opted in, and print the resolved
-  base URL before sending prompts.
-- Make LLM-backed analysis opt-in.
+Vendor shipped (0.14.2, commit `b99bb14`, PR #134, 2026-11-13) — addresses RT-01 only:
+
+- Removed import-time `load_dotenv()`; `.env` files load only via explicit `--env-file` (or `AGENTIC_RADAR_ENV_FILE`) on `scan`/`test`, with `override=False`.
+- Added `tests/env_file_test.py` (import no longer calls `find_dotenv()`; cwd/input-dir `.env` is not loaded).
+
+Not yet addressed (still present in 0.14.2):
+
+- RT-02: `extract_imports_with_ast` still raises `UnboundLocalError` on unparsable `.py` (add `return []` after the parse-error branch).
+- RT-03: `report.generate()` still emits unescaped graph names (Jinja env has no `autoescape`; library-only XSS). Add escaping / autoescape.
+
+Recommendations not adopted: reject a non-default `OPENAI_BASE_URL` unless explicitly opted in, print the resolved base URL before sending prompts, and make LLM-backed analysis opt-in.
 
 ## Evidence
 
@@ -72,5 +79,5 @@ Expected: two `POST /v1/chat/completions` requests reach the listener with
 
 Vendor notified `2026-11-12T00:26:10Z` at `developers@splx.ai` (Cc `ante@splx.ai`), Message-ID
 `<AFRc0PZKfwKA0vhEbrH5s_7PN2phfIT_Npa7V6UOuitZ2oW9wuXIzBpqdLiBiMVyeejORT-XWZPqE8FiPm-r6wiuAbsN720Pw0ISzMPDt6I=@protonmail.com>`,
-no reply. Submitted to VulDB, which is a CNA. Not submitted to any other CNA. GitHub private
+no reply. Submitted to VulDB, which is a CNA. Submitted to VulnCheck (CNA), submission ID `ba40600f-11e9-4afa-a1f0-53475fac6a6b`. Not submitted to any other CNA. GitHub private
 vulnerability reporting is disabled on the upstream repository.
