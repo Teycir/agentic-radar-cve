@@ -12,8 +12,11 @@ named in a `.env` file that the scanned repository controls. No flag, prompt or 
 | Fixed in | RT-01 fixed in `0.14.2` (commit `b99bb14`, PR #134, 2026-11-13); RT-02 (langgraph crash) and RT-03 (report XSS) remain unfixed in `0.14.2` |
 | Severity | High — CVSS 3.1 **7.4** `AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:N/A:N` |
 | CWE | CWE-15, CWE-522 |
+| CVE | [`CVE-2026-132122`](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-132122) |
 | Reported by | Teycir ([github.com/Teycir](https://github.com/Teycir)) |
-| Status | RT-01 fixed by vendor in 0.14.2; RT-02 and RT-03 still open. Submitted to VulDB (CNA), no CVE assigned yet. |
+| Status | RT-01 fixed by vendor in 0.14.2; RT-02 and RT-03 still open. CVE-2026-132122 assigned; disclosed via VulDB (CNA) and VulnCheck (CNA). |
+
+![CVE-2026-132122 — assigned entry](assignedCVE/CVE-2026-132122.png)
 
 ## Issue
 
